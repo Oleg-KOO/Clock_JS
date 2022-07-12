@@ -1,5 +1,5 @@
 function SetAttr(attr){
-	for (let a in attr)	this.setAttribute(a, attr[a]);
+	for (let a in attr) this.setAttribute(a, attr[a]);
 }
 	
 function AddSVG(attr){
@@ -75,19 +75,6 @@ function GetClockHands(draw, radius, radiusText){
 	
 	return { Hour: hourHand, Minute: minuteHand, Second: secondHand};	
 }
-	
-let divBox = document.getElementsByClassName('clock')[0];
-SVGElement.prototype.SetAttr = SetAttr;
-SVGElement.prototype.AddSVG = AddSVG;
-HTMLElement.prototype.AddSVG = AddSVG;
-	
-let draw1 = divBox.AddSVG({tag: 'svg', width: '100%', height: '100%', viewBox: '0 0 800 800'});
-	
-let radius = 280;
-let radiusText = 350;
-let myClock = GetClockFace(draw1, radius, radiusText);
-let myHands = GetClockHands(myClock, radius, radiusText);
-myClock.SetAttr({transform: "translate(400, 400)"});
 
 function clockTic(hands) {
 	let date = new Date();
@@ -100,5 +87,17 @@ function clockTic(hands) {
 	hands.Second.setAttribute('transform', "rotate(" + (sec * 6 + msec / 1000 * 6) + ", 0, 0)");
 }
 	
+SVGElement.prototype.SetAttr = SetAttr;
+SVGElement.prototype.AddSVG = AddSVG;
+HTMLElement.prototype.AddSVG = AddSVG;
+let divBox = document.getElementsByClassName('clock')[0];	
+let draw1 = divBox.AddSVG({tag: 'svg', width: '100%', height: '100%', viewBox: '0 0 800 800'});
+	
+let radius = 280;
+let radiusText = 350;
+let myClock = GetClockFace(draw1, radius, radiusText);
+let myHands = GetClockHands(myClock, radius, radiusText);
+myClock.SetAttr({transform: "translate(400, 400)"});
+
 clockTic(myHands);
 let intervalSetTime = setInterval(function(){clockTic(myHands)}, 100);
