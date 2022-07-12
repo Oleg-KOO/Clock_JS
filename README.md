@@ -1,1 +1,2 @@
-# Clock_JS
+# Clock_JS  
+Часы в JS
